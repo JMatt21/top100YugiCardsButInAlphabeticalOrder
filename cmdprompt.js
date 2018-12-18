@@ -33,6 +33,7 @@ request("https://yugiohprices.com/top_100?rarity=common&meta_relevant=true", fun
     if (titleA > titleB) { return 1; }
     return 0;
   });
-  console.log(results);
-
+  results.forEach(card => {
+    console.log(`${card.title}: ${card.price}\n`);
+  })
 });
