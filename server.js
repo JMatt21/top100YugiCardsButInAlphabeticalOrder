@@ -2,6 +2,7 @@
 var express = require("express");
 var path = require("path");
 var cheerio = require("cheerio");
+var bodyParser = require("body-parser");
 var request = require("request");
 // Create express app instance.
 var app = express();
@@ -12,17 +13,19 @@ var PORT = process.env.PORT || 8080;
 
 // Sets up the Express app to handle data parsing
 
-// // parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: true }));
-// // parse application/json
-// app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+// parse application/json
+app.use(bodyParser.json());
+// allows us to use the 'public' folder from the front end
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-app.get("/commons", (req, res) => {
-    request("https://yugiohprices.com/top_100?rarity=common&meta_relevant=true", function (error, response, html) {
+app.get("/cards/:rarity", (req, res) => {
+    request(`https://yugiohprices.com/top_100?rarity=${req.params.rarity}&meta_relevant=true`, function (error, response, html) {
         if (error) {
             console.log(error);
         }

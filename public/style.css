@@ -1,0 +1,15 @@
+button {
+    margin-bottom: 15px;
+}
+
+#left {
+    float: left;
+    width: 50%;
+}
+
+#right {
+    margin-top: 25px;
+    margin-left: 5%;
+    float: right;
+    width: 45%;
+}
